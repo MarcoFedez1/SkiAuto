@@ -57,7 +57,7 @@ public class payment {
 	@FindBy (xpath = "//*[@id='creditCard']/div[3]/div/div/div/select[2]")
 	private WebElement year;
 	
-	@FindBy (xpath = "//div[@class='price money']")
+	@FindBy (xpath = "//strong[@class='price money']")
 	private WebElement total;
 	
 	@FindBy (css = ".btn-success")

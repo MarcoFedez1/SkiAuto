@@ -49,31 +49,29 @@ public class ikonRenewTest {
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/ikon-passes");
 	}
     
-    @Test (priority = 3, description = "Verify user is able to display renewal passes")
+    @Test (priority = 2, description = "Verify user is able to display renewal passes")
 	public void ikonRenewalPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
-    	iPage.clickreNewPassTab();
-    	
+    	iPage.clickreNewPassTab(); 	
 	}
     
-    @Test (priority = 4, description = "Verify that user is able to add renewal passes")
+    @Test (priority = 3, description = "Verify that user is able to add renewal passes")
 	public void AddAdultPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddAdultRenewPass(1);
 	}
     
-    @Test (priority = 8, description = "Verify that clicking on 'Lets Book It' travelers information page should be displayed")
+    @Test (priority = 4, description = "Verify that clicking on 'Lets Book It' travelers information page should be displayed")
 	public void clickLetBook() throws InterruptedException   {
     	ikon iPage = new ikon(driver);
     	String price = iPage.getPrice();
-    	Thread.sleep(1000);
     	iPage.clickLetBookIt();
     	travelers tPage = new travelers(driver);
-    	Thread.sleep(1000);
+    	Assert.assertEquals(price, tPage.getPrice());
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/travelers");
 	}
     
-    @Test (priority = 9, description = "Fill travelers information and click 'Continue'")
+    @Test (priority = 5, description = "Fill travelers information and click 'Continue'")
 	public void setTravelers() throws InterruptedException   {
     	travelers tPage = new travelers(driver);
     	String [] names = {"Marco"};
@@ -84,10 +82,11 @@ public class ikonRenewTest {
     	tPage.clickContinue();
     	Thread.sleep(500);
     	payment payPage = new payment(driver);
+    	Assert.assertEquals(payPage.getPrice(), price);
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/payment");
 	}
     
-    @Test (priority = 10, description = "Fill billing and payment information and click 'Reserve Now'")
+    @Test (priority = 6, description = "Fill billing and payment information and click 'Reserve Now'")
 	public void BillingInformation() throws InterruptedException   {
     	payment payPage = new payment(driver);
     	payPage.setBillingInformation("fedez.marco1@gmail.com", "Marco", "Fernandez", "504 N Jordan Ave", "Liberal", "KS", "US", "69701", "6325897485");

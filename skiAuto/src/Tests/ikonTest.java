@@ -43,48 +43,41 @@ public class ikonTest {
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/ikon-passes");
 	}
     
-//    @Test (priority = 2, description = "Verify user is able to add passes for all categories, and verify prices")
-//	public void ikonVerifyAddPasses() throws InterruptedException  {
-//    	ikon iPage = new ikon(driver);
-//    	iPage.AllIkonPassPrice();
-//	}
-    
-    @Test (priority = 3, description = "Verify user is able to add pass for Adults, and verify prices")
+    @Test (priority = 2, description = "Verify user is able to add pass for Adults, and verify prices")
 	public void ikonAdultPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddAdultPass(1);
 	}
     
-    @Test (priority = 4, description = "Verify user is able to add pass for Teens, and verify prices")
+    @Test (priority = 3, description = "Verify user is able to add pass for Teens, and verify prices")
 	public void ikonTeensPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddTeensPass(1);
 	}
     
-    @Test (priority = 5, description = "Verify user is able to add pass for Child, and verify prices")
+    @Test (priority = 4, description = "Verify user is able to add pass for Child, and verify prices")
 	public void ikonChildPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddChildPass(3);
 	}
     
-    @Test (priority = 6, description = "Verify user is able to add pass for Toddler, and verify prices")
+    @Test (priority = 5, description = "Verify user is able to add pass for Toddler, and verify prices")
 	public void ikonToddlerPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddToddlerPass(1);
 	}
 
-    @Test (priority = 7, description = "Verify that user is able to add/remove extra passes from unlocked section")
+    @Test (priority = 6, description = "Verify that user is able to add/remove extra passes from unlocked section")
 	public void addremoveExtraPasses() throws InterruptedException  {
     	ikon iPage = new ikon(driver);
     	iPage.AddAdultPass(1);
     	iPage.AddChildTicketsPassAdult();
     	Thread.sleep(500);
-    	//Falla por un error de la pagina, le das click en remove y se clickea el item de abajo
     	iPage.removeChildTicketsPassAdult();
     	iPage.resetAlltickets();
 	}
     
-    @Test (priority = 8, description = "Verify that clicking on 'Lets Book It' travelers information page should be displayed")
+    @Test (priority = 7, description = "Verify that clicking on 'Lets Book It' travelers information page should be displayed")
 	public void clickLetBook() throws InterruptedException   {
     	ikon iPage = new ikon(driver);
     	iPage.AddAdultPass(1);
@@ -99,7 +92,7 @@ public class ikonTest {
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/travelers");
 	}
     
-    @Test (priority = 9, description = "Fill travelers information and click 'Continue'")
+    @Test (priority = 8, description = "Fill travelers information and click 'Continue'")
 	public void setTravelers() throws InterruptedException   {
     	travelers tPage = new travelers(driver);
     	String [] names = {"Marco",  "Pablo", "Jocelyn", "Victor"};
@@ -108,8 +101,7 @@ public class ikonTest {
     	String price = tPage.getPrice();
     	tPage.clickContinue();
     	payment payPage = new payment(driver);
-    	//Assert.assertEquals(price, payPage.getPrice());
-    	Thread.sleep(1000);
+    	Assert.assertEquals(payPage.getPrice(), price);;
     	Assert.assertEquals(driver.getCurrentUrl(), "https://epic.events.ski.com/payment");
 	}
     

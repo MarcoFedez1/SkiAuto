@@ -78,17 +78,30 @@ public class HoteDetails {
 	 	}
 	}
 	
-	public String clickSelectRoom() {
+	public String clickSelectRoom() throws InterruptedException {
 		WebElement button = RoomsOptions.get(0).findElement(By.cssSelector("a.btn"));
+		JavascriptExecutor js = (JavascriptExecutor) driver;  
 		String BntText = button.getAttribute("innerText");
-		if(BntText.equals("SELECT")) {
+		switch (BntText) {
+		case "SELECT":
 			String total = RoomsOptions.get(0).findElement(By.cssSelector("span.price.ng-binding")).getAttribute("innerText");
-			JavascriptExecutor js = (JavascriptExecutor) driver;  
 			js.executeScript("arguments[0].click()", button);
 			return total;
-		}else {
+		case "REQUEST A BOOKING":
+			total = RoomsOptions.get(0).findElement(By.cssSelector("span.price.ng-binding")).getAttribute("innerText");
+			js.executeScript("arguments[0].click()", button);
+			return total;
+		case "PRICE IT!":
+			js.executeScript("arguments[0].click()", button);
+			Thread.sleep(1000);
+			total = RoomsOptions.get(0).findElement(By.cssSelector("span.price.ng-binding")).getAttribute("innerText");
+			js.executeScript("arguments[0].click()", button);
+			return total;
+		default:
 			return "";
 		}
+		
+		
 		
 	}
 }

@@ -50,13 +50,20 @@ public class epic {
 	@FindBy (id = "regularPasses")
 	private WebElement regularPasses;
 	
+	@FindBy (xpath = "//a[@href = '/ikon']")
+	private WebElement ikon;
+	
+	@FindBy (xpath = "//a[@href = '/epic']")
+	private WebElement epic;
+	
 	public void clickBuyNow() {
 		WebDriverWait wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.elementToBeClickable(BuyNow));
 		BuyNow.click();
 	}
 	
-	public String getPrice() {
+	public String getPrice() throws InterruptedException {
+		Thread.sleep(1500);
 		return TotalPrice.getAttribute("innerText");
 	}
 	
@@ -100,14 +107,14 @@ public class epic {
 				String ages = results.get(i).findElement(By.tagName("small")).getAttribute("innerText");
 				String typePass = results.get(i).findElement(By.className("cursor-pointer")).getAttribute("innerText");
 				System.out.println(typePass);
-				if(ages.equals("Ages 13 - 99") && typePass.equals("Adult Epic 4 Day Pass ")) {
+				if(ages.equals("Ages 13 - 99") && typePass.equals("Adult Epic 7 Day Pass ")) {
 					String price = results.get(i).findElement(By.className("price-sml")).getAttribute("innerText");
-					price = price.replace("US$", "").replace("/ person", "");
+					price = price.replace("$", "").replace("/ person", "");
 					Select numPass = new Select(results.get(i).findElement(By.tagName("select")));
 					numPass.selectByIndex(numberofTickets);
 					String subtotal = results.get(i).findElement(By.className("money")).getAttribute("innerText");
-					subtotal = subtotal.replace("US$", "").replace(",", "");
-					float TotalPrice = Float.valueOf(getPrice().replace("US$", "").replace(" Total", "").replace(",", ""));
+					subtotal = subtotal.replace("$", "").replace(",", "");
+					float TotalPrice = Float.valueOf(getPrice().replace("$", "").replace(" Total", "").replace(",", ""));
 					float sub = Float.valueOf(subtotal);
 					float iprice = Float.valueOf(price);					
 					DecimalFormat formato2 = new DecimalFormat("#.##");
@@ -125,13 +132,13 @@ public class epic {
 			if (results.get(i).isDisplayed()) {
 				String ages = results.get(i).findElement(By.tagName("small")).getAttribute("innerText");
 				String typePass = results.get(i).findElement(By.className("cursor-pointer")).getAttribute("innerText");
-				if(ages.equals("Ages 5 - 12") && typePass.equals("Child Epic 4 Day Pass ")) {
+				if(ages.equals("Ages 5 - 12") && typePass.equals("Child Epic 7 Day Pass ")) {
 					String price = results.get(i).findElement(By.className("price-sml")).getAttribute("innerText");
-					price = price.replace("US$", "").replace("/ person", "");
+					price = price.replace("$", "").replace("/ person", "");
 					Select numPass = new Select(results.get(i).findElement(By.tagName("select")));
 					numPass.selectByIndex(numberofTickets);
 					String subtotal = results.get(i).findElement(By.className("money")).getAttribute("innerText");
-					subtotal = subtotal.replace("US$", "").replace(",", "");
+					subtotal = subtotal.replace("$", "").replace(",", "");
 					float sub = Float.valueOf(subtotal);
 					float iprice = Float.valueOf(price);
 					DecimalFormat formato2 = new DecimalFormat("#.##");
@@ -156,5 +163,9 @@ public class epic {
                 };
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(pageLoadCondition);
+    }
+    
+    public void clickIkon() {
+    	ikon.click();
     }
 }

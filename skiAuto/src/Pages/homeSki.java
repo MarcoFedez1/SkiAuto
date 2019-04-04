@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -27,6 +28,9 @@ public class homeSki {
         //This initElements method will create all WebElements
         PageFactory.initElements(driver, this);
     }
+	@FindBy (xpath = "//a[@href='/epic-vs-ikon")
+	private WebElement epicIkon;
+	
 	@FindBy (css = "span.homeIcons:nth-child(3) > a:nth-child(1)")
 	private WebElement loginLink;
 	
@@ -94,7 +98,7 @@ public class homeSki {
 		Calendar calendar = new GregorianCalendar();
 		calendar.setTime(d);
 		//add one month
-		calendar.add(Calendar.MONTH, 1);
+		calendar.add(Calendar.WEEK_OF_YEAR, 3);
 		Actions action = new Actions(driver);
 		Action mouseOverDate = action.moveToElement(startDate).build();
 		mouseOverDate.perform();
@@ -160,6 +164,13 @@ public class homeSki {
 	
 	public void clickEpicLink() {
 		epicLink.click();
+	}
+	
+	public void clickIkonEpic() {
+		Actions action = new Actions(driver);
+		Action mouseOverTravelers = action.moveToElement(epicIkon).build();
+		mouseOverTravelers.perform();
+		epicIkon.click();
 	}
 	
 	

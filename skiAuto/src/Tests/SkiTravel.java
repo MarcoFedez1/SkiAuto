@@ -49,12 +49,8 @@ public class SkiTravel {
 		l.SwitchWinTabs();
 		String [] info = l.reviewHotel(0);
 		HoteDetails hdPage = new HoteDetails(driver);
-		String infoDetails = hdPage.PriceDisplayed();
-		String [] info1 = infoDetails.split("-");
 		String HotelName = hdPage.getHotelName();
-		if (info1[0].equals("true")) {
- 			Assert.assertEquals(HotelName + " "  + info1[1], info[1] + " "  + info[0]);
-		}
+ 		Assert.assertEquals(HotelName, info[1]);
 	}
 	
 	@Test (priority = 3, description = "Select room")

@@ -7,6 +7,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import Pages.Browser;
 import Pages.RequestQuote;
+import Pages.gmail;
 import Pages.homeSki;
 
 public class RequestQuoteTest {
@@ -63,5 +64,13 @@ public class RequestQuoteTest {
     	rqPage.InvisibilityofWaitSpinner();
     	Thread.sleep(1500);
     	Assert.assertEquals(driver.getCurrentUrl(), "https://www.ski.com/quote/thankyou");
+	}
+    
+    @Test (priority = 3, description = "Submit a Quote")
+	public void verifyEmail() throws InterruptedException {
+    	driver.get("https://mail.google.com/mail");
+    	gmail gmailPage = new gmail(driver);
+    	gmailPage.gmailSingIn("fedez.marco1", "Lenovo@1");
+    	gmailPage.verifyEmail();
 	}
 }
