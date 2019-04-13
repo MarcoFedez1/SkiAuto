@@ -1,0 +1,79 @@
+@FindBy (xpath = //a[@href='.toggle-coupon-box']
+private WebElement HaveCouponCode;
+
+@FindBy (id = 'coupon-code')
+private WebElement CouponTxt;
+
+@FindBy (id = 'coupon-code-apply')
+private WebElement ApplyCoupon;
+
+@FindBy (xpath = "//div[@class='help-block text-danger']")
+private WebElement txtDanger;
+
+@FindBy (xpath = "//strong[@class='text-success text-uppercase']")
+private WebElement successText;
+
+@FindBy (id = "savedAmount")
+private WebElement savedAmount;
+
+public void clickHaveCoupon(){
+  HaveCouponCode.click();
+}
+
+public void clickApplyCoupon(){
+  ApplyCoupon.click();
+}
+
+public void setCoupon(coupon){
+  CouponTxt.sendKeys(coupon);
+}
+
+public String getTextDanger(){
+  return txtDanger.getAttibute("innerText");
+}
+
+public String getSuccessText(){
+  return successText.getAttibute("innerText");
+}
+
+public String getSavedAmount(){
+  String save = savedAmount.getAttibute("innerText");
+  save = save.replace("$","");
+  return save;
+}
+
+//TC_CS001
+@Test (priority = 0, description = "Verify that on adding an invalid coupon, an error message should be shown.")
+public void TC_CS001(){
+  //Agregar cualquier items de eyeglasses or sunglasses
+  Cart cPage = new Cart(driver);
+  cPage.clickHaveCoupon();
+  cPage.setCoupon("KPLF");
+  cPage.clickApplyCoupon();
+  Assert.AssertEquals(cPage.getTextDanger(), "Promo not found");
+}
+
+//TC_CS002
+@Test (priority = 1, description = "Verify that on adding a valid coupon, the success message should be shown.")
+public void TC_CS002(){
+  //Agregar cualquier items de eyeglasses or sunglasses
+  Cart cPage = new Cart(driver);
+  cPage.setCoupon("KPLF");
+  cPage.clickApplyCoupon();
+  Assert.AssertEquals(cPage.getTextDanger(), "");
+}
+
+//TC_CS003
+@Test (priority = 2, description = "Verify that on adding a valid coupon, the coupon should be applied successfully.")
+public void TC_CS002(){
+  //Agregar cualquier items de eyeglasses or sunglasses
+  Cart cPage = new Cart(driver);
+  cPage.getSavedAmount();
+  driver.get("https://www.39dollarglasses.com/iced_tea");
+  SignIn siPage = new SignIn(driver);
+  
+  cPage.setCoupon("KPLF");
+  cPage.clickApplyCoupon();
+  Assert.AssertEquals(cPage.getTextDanger(), "");
+}
+
