@@ -13,8 +13,14 @@ private WebElement txtDanger;
 @FindBy (xpath = "//strong[@class='text-success text-uppercase']")
 private WebElement successText;
 
+@FindBy (id = "totalPrice")
+private WebElement totalAmount;
+
 @FindBy (id = "savedAmount")
 private WebElement savedAmount;
+
+@FindBy (id = "newPrice")
+private WebElement newPrice;
 
 public void clickHaveCoupon(){
   HaveCouponCode.click();
@@ -26,6 +32,14 @@ public void clickApplyCoupon(){
 
 public void setCoupon(coupon){
   CouponTxt.sendKeys(coupon);
+}
+
+public boolean TextDangerDisplated()
+  if (txtDanger.isDisplayed()){
+    return true;
+  }else {
+    return false;
+  }
 }
 
 public String getTextDanger(){
@@ -41,6 +55,21 @@ public String getSavedAmount(){
   save = save.replace("$","");
   return save;
 }
+
+public String getTotalAmount(){
+  String total = totalAmount.getAttibute("innerText");
+  total = total.replace("$","");
+  return total;
+}
+
+public String getNewAmount(){
+  String new = newPrice.getAttibute("innerText");
+  new = new.replace("$","");
+  return new;
+}
+
+String invalidC = "KPLF";
+String valid = "LUCKY15";
 
 //TC_CS001
 @Test (priority = 0, description = "Verify that on adding an invalid coupon, an error message should be shown.")
@@ -58,22 +87,30 @@ public void TC_CS001(){
 public void TC_CS002(){
   //Agregar cualquier items de eyeglasses or sunglasses
   Cart cPage = new Cart(driver);
-  cPage.setCoupon("KPLF");
+  cPage.setCoupon("JESS20");
   cPage.clickApplyCoupon();
   Assert.AssertEquals(cPage.getTextDanger(), "");
 }
-
-//TC_CS003
-@Test (priority = 2, description = "Verify that on adding a valid coupon, the coupon should be applied successfully.")
-public void TC_CS002(){
+//JESS20 		20% off
+//TC_CS003 & TC_CS004
+@Test (priority = 2, description = "Verify that on adding a valid coupon, the coupon should be applied successfully & Verify that the correct coupon is applied.")
+public void TC_CS003_TC_CS004(){
   //Agregar cualquier items de eyeglasses or sunglasses
   Cart cPage = new Cart(driver);
-  cPage.getSavedAmount();
-  driver.get("https://www.39dollarglasses.com/iced_tea");
-  SignIn siPage = new SignIn(driver);
-  
-  cPage.setCoupon("KPLF");
-  cPage.clickApplyCoupon();
-  Assert.AssertEquals(cPage.getTextDanger(), "");
+  float total = float.valueOf(cPage.getTotalAmount());
+  float saved = float.valueOf(cPage.getSavedAmount());
+  float new = float.valueOf(cPage.getNewAmount());
+  Assert.assertEquals(saved, total*0.20)
+  //TC_CS004
+  Assert.assertEquals(new, total-saved)
 }
 
+//MarcoTest BoGo
+//TC_CS005 
+@Test (priority = 3, description = "Verify that on applying BOGO discounts, two items should be in the Cart.")
+public void TC_CS005(){
+  //Agregar cualquier items de eyeglasses or sunglasses
+  Cart cPage = new Cart(driver);
+  cPage.setCoupon("MarcoTest");
+  Assert.AssertTrue(cPage.getTextDanger(), "");
+}
