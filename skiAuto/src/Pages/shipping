@@ -1,0 +1,118 @@
+@FindBy (id = "billing-first-name")
+private WebElement fname;
+
+@FindBy (id = "billing-last-name")
+private WebElement lname;
+//Select
+@FindBy (id = "billing-country")
+private WebElement country;
+
+@FindBy (id = "billing-address1")
+private WebElement address;
+
+@FindBy (id = "billing-city")
+private WebElement city;
+
+//Select
+@FindBy (id = "billing-state")
+private WebElement state;
+
+@FindBy (id = "billing-zip")
+private WebElement zip;
+
+@FindBy (id = "billing-state-label")
+private WebElement stateLabel;
+
+@FindBy (id = "billing-zip-label")
+private WebElement zipLabel;
+
+@FindBy (id = "phone-day")
+private WebElement phoneDay;
+
+@FindBy (id = "phone-night")
+private WebElement phoneNight;
+
+@FindBy (id = "same-as-billing")
+private WebElement sameAsBilling;
+
+@FindBy (id = "shipping-details")
+private WebElement shippingDetails;
+
+@FindBy (id = "shipping-first-name")
+private WebElement sfname;
+
+@FindBy (id = "shipping-last-name")
+private WebElement slname;
+//Select
+@FindBy (id = "shipping-country-text")
+private WebElement scountry;
+
+@FindBy (id = "shipping-address1")
+private WebElement saddress;
+
+@FindBy (id = "shipping-city")
+private WebElement scity;
+
+//Select
+@FindBy (id = "shipping-state")
+private WebElement sState;
+
+@FindBy (id = "shipping-zip")
+private WebElement szip;
+
+@FindBy (id = "ship-mode")
+private WebElement shipMode;
+
+@FindBy (id = "place-order")
+private WebElement placeOrder;
+
+public void setBillingInfo(String first, String last, String Address, String Country, String City, String State, String Zip, String phone, String NightPhone){
+  fname.clean();
+  fname.sendkeys("");
+  lname.clean();
+  lname.sendkeys("");
+  Select c = new Select(country);
+  c.
+  address.clean();
+  address.sendkeys("");
+  city.clean();
+  city.sendkeys("");
+  Select s = new Select(state);
+  s.
+  zip.clean();
+  zip.sendkeys("");
+  phoneDay.clean();
+  phoneDay.sendkeys("");
+  phoneNight.clean();
+  phoneNight.sendkeys("");
+}
+
+public void setShippingInfo(String first, String last, String Address, String Country, String City, String State, String Zip){
+  sfname.clean();
+  sfname.sendkeys("");
+  slname.clean();
+  slname.sendkeys("");
+  Select c = new Select(scountry);
+  c.
+  saddress.clean();
+  saddress.sendkeys("");
+  scity.clean();
+  scity.sendkeys("");
+  Select s = new Select(sState);
+  s.
+  szip.clean();
+  szip.sendkeys("");
+}
+
+public void clickPlaceOrder(){
+  placeOrder.click();
+}
+
+public String getStateLabel(){
+  return stateLabel.getAttribute("innerText");
+}
+
+public String getZipLabel(){
+  return zipLabel.getAttribute("innerText");
+}
+
